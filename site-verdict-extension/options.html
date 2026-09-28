@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Site Verdict — Settings</title>
+  <style>
+    body { font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; max-width: 480px; margin: 20px; font-size: 13px; color: #222; }
+    h1 { font-size: 16px; }
+    label { display: block; margin-top: 14px; font-weight: 600; }
+    input, textarea { width: 100%; padding: 6px; margin-top: 4px; font-size: 13px; box-sizing: border-box; }
+    textarea { height: 80px; }
+    p.hint { color: #777; font-size: 12px; margin: 4px 0 0 0; }
+    button { margin-top: 14px; padding: 8px 14px; cursor: pointer; }
+    #status { margin-left: 10px; color: #1e7e34; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Site Verdict Settings</h1>
+
+  <label for="vtApiKey">VirusTotal API key (optional)</label>
+  <input type="password" id="vtApiKey" autocomplete="off" placeholder="paste your free API key" />
+  <p class="hint">
+    Without a key, the extension will still show the domain's registration date and the
+    brand-similarity heuristic, but won't be able to query VirusTotal for reputation.
+    Get a free key at virustotal.com after signing up (API Key section of your profile).
+  </p>
+
+  <label for="gsbApiKey">Google Safe Browsing API key (optional)</label>
+  <input type="password" id="gsbApiKey" autocomplete="off" placeholder="paste your free API key" />
+  <p class="hint">
+    A second, independent reputation check against Google's known-threat database
+    (malware, phishing, unwanted software). Get a free key from the Google Cloud
+    Console: create a project, enable the "Safe Browsing API", then create an API key
+    under Credentials. The free quota is generous for personal use.
+  </p>
+
+  <p class="hint"><strong>For publishing:</strong> the extension does not contain a shared API secret. Each user enters their own keys here, and the keys stay in that browser's local extension storage. Do not publish your personal API keys inside the extension source.</p>
+
+  <label for="customBrands">Additional "official" domains (one per line)</label>
+  <textarea id="customBrands" placeholder="mybank.com&#10;mycompany.com"></textarea>
+  <p class="hint">These domains are added to the built-in list of known sites used for typosquatting checks.</p>
+
+  <button id="saveBtn">Save</button>
+  <button id="testBtn" type="button">Test API keys</button>
+  <span id="testStatus"></span>
+  <span id="status"></span>
+
+  <script src="options.js"></script>
+</body>
+</html>

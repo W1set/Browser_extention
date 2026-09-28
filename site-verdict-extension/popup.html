@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Site Verdict</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <img src="icons/icon-48.png" width="24" height="24" alt="" />
+      <h1>Site Verdict</h1>
+      <button id="refreshBtn" title="Re-check">⟳</button>
+    </header>
+
+    <div id="loading" class="state hidden">Analyzing site…</div>
+    <div id="empty" class="state hidden">Open a regular web page (http/https) to see the check.</div>
+    <div id="error" class="state hidden"></div>
+
+    <div id="content" class="hidden">
+      <div class="domain-row">
+        <span id="domainName" class="domain"></span>
+        <span id="httpsBadge" class="badge"></span>
+      </div>
+
+      <div id="verdictBox" class="verdict-box">
+        <div id="verdictLabel" class="verdict-label"></div>
+        <div class="score-bar">
+          <div id="scoreFill" class="score-fill"></div>
+        </div>
+        <div id="scoreText" class="score-text"></div>
+      </div>
+
+      <ul id="reasonsList" class="reasons"></ul>
+
+      <div class="section">
+        <h2>Domain registration</h2>
+        <div class="kv"><span>Registered:</span><span id="regDate">—</span></div>
+        <div class="kv"><span>Domain age:</span><span id="ageText">—</span></div>
+        <div class="kv"><span>Registrar:</span><span id="registrar">—</span></div>
+        <div class="kv"><span>Expires:</span><span id="expDate">—</span></div>
+      </div>
+
+      <div class="section">
+        <h2>Reputation (VirusTotal)</h2>
+        <div id="vtBlock">—</div>
+      </div>
+
+      <div class="section">
+        <h2>Reputation (Google Safe Browsing)</h2>
+        <div id="gsbBlock">—</div>
+      </div>
+
+      <div class="section">
+        <h2>Similarity to known brands</h2>
+        <div id="brandBlock">—</div>
+      </div>
+    </div>
+
+    <footer>
+      <a href="options.html" id="optionsLink">Settings / API key</a>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
