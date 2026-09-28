@@ -1,200 +1,316 @@
-# Website Trust Checker
+# Site Verdict
 
-A lightweight browser extension that helps users identify potentially suspicious and fraudulent websites before interacting with them.
+**Site Verdict** is a Firefox browser extension that analyzes websites and provides security information to help identify potentially suspicious or malicious websites.
 
-The extension automatically analyzes the current website and displays a small trust indicator directly on the page.
+The extension can use multiple reputation and security checks, including:
+
+* **VirusTotal Reputation**
+* **Google Safe Browsing**
+* Local website analysis
+* Domain and URL information
+
+> **Note:** Site Verdict is an additional security tool. A positive or negative result does not guarantee that a website is completely safe or malicious.
+
+---
 
 ## Features
 
-* 🔍 **Automatic website analysis** — checks websites when you visit them.
-* 🛡️ **Phishing detection** — identifies domains associated with known phishing activity.
-* 🌐 **Domain analysis** — detects suspicious domain patterns, including typosquatting and look-alike domains.
-* ⚠️ **Non-intrusive warnings** — displays a compact warning without blocking the website.
-* 📊 **Trust indicator** — provides a quick visual indication of the website's status.
-* ⚡ **Lightweight** — designed to perform checks without significantly affecting browsing performance.
+* Check the reputation of the current website.
+* VirusTotal reputation lookup.
+* Google Safe Browsing lookup.
+* Combine multiple security signals.
+* Simple browser popup interface.
+* Configurable API keys through the extension settings.
+* Works with Firefox and Manifest V3.
 
-## How It Works
+---
 
-When a page is opened, the extension extracts information about the current website and performs several checks:
+# API Configuration
 
-```text
-User opens website
-        ↓
-Extract domain
-        ↓
-Check domain reputation
-        ↓
-Analyze domain characteristics
-        ↓
-Calculate result
-        ↓
-Display trust indicator
-```
+To use the reputation checks, you need to configure the API keys in the extension's **Settings**.
 
-The extension can combine multiple signals rather than relying on a single blacklist.
+The extension supports two external reputation services:
 
-For example:
+1. VirusTotal
+2. Google Safe Browsing
 
-* Known phishing reports
-* Suspicious domain structure
-* Typosquatting
-* Look-alike domains
-* Unusual TLDs
-* Domain reputation
+You can use either service independently or configure both for additional reputation information.
 
-## Example
+---
 
-A legitimate website:
+# VirusTotal Reputation
+
+VirusTotal can be used to check a URL against multiple security vendors and reputation databases.
+
+If no VirusTotal API key is configured, the extension will display:
 
 ```text
-https://www.microsoft.com
+No VirusTotal API key set. Add one in Settings to check reputation.
 ```
 
-may receive:
+## Getting a VirusTotal API Key
+
+1. Go to the official VirusTotal website:
+
+[VirusTotal](https://www.virustotal.com/?utm_source=chatgpt.com)
+
+2. Create an account or sign in.
+3. Open your user profile.
+4. Find the **API Key** section.
+5. Copy your API key.
+
+## Adding the VirusTotal API Key
+
+Open:
 
 ```text
-✓ Trusted
+Site Verdict → Settings
 ```
 
-A suspicious look-alike domain such as:
+Find the **VirusTotal API Key** field and paste your key.
+
+Save the settings and run the website check again.
+
+After configuration, the extension can use VirusTotal to retrieve reputation information for the current website.
+
+### VirusTotal API
+
+The extension uses the VirusTotal API to perform reputation checks.
+
+VirusTotal API documentation:
+
+[VirusTotal API Documentation](https://docs.virustotal.com/reference/overview?utm_source=chatgpt.com)
+
+---
+
+# Google Safe Browsing
+
+Google Safe Browsing can provide a second reputation check for websites.
+
+If no Google Safe Browsing API key is configured, the extension will display:
 
 ```text
-https://microsaft-example.com
+No Google Safe Browsing API key set. Add one in Settings for a second reputation check.
 ```
 
-may receive:
+## Getting a Google Safe Browsing API Key
+
+1. Open **Google Cloud Console**:
+
+[Google Cloud Console](https://console.cloud.google.com/?utm_source=chatgpt.com)
+
+2. Create a new project or select an existing project.
+3. Open **APIs & Services → Library**.
+4. Search for:
 
 ```text
-⚠ Suspicious
+Safe Browsing API
 ```
 
-The warning is intended to help users make an informed decision before entering credentials or other sensitive information.
+5. Enable the API.
+6. Go to:
 
-## Installation
+```text
+APIs & Services → Credentials
+```
 
-### From source
+7. Click **Create Credentials**.
+8. Select **API key**.
+9. Copy the generated API key.
 
-Clone the repository:
+## Adding the Google Safe Browsing API Key
+
+Open:
+
+```text
+Site Verdict → Settings
+```
+
+Find the **Google Safe Browsing API Key** field and paste your key.
+
+Save the settings and run the website check again.
+
+The extension can then use Google Safe Browsing as a second reputation source.
+
+### Google Safe Browsing API
+
+Official documentation:
+
+[Google Safe Browsing API Documentation](https://developers.google.com/safe-browsing/v4/lookup-api?utm_source=chatgpt.com)
+
+---
+
+# Recommended Configuration
+
+For the most useful reputation information, configure **both** services:
+
+```text
+VirusTotal API Key
+        +
+Google Safe Browsing API Key
+        ↓
+   Site Verdict
+        ↓
+Multiple reputation signals
+```
+
+The services are independent. If one API is unavailable or not configured, the extension can still use the other available checks.
+
+---
+
+# Example Results
+
+### VirusTotal not configured
+
+```text
+Reputation (VirusTotal)
+
+No VirusTotal API key set. Add one in Settings to check reputation.
+```
+
+### Google Safe Browsing not configured
+
+```text
+Reputation (Google Safe Browsing)
+
+No Google Safe Browsing API key set. Add one in Settings for a second reputation check.
+```
+
+### Both APIs configured
+
+The extension can display reputation information from both services, allowing the user to compare the available security signals.
+
+---
+
+# Installation
+
+## Firefox
+
+1. Download or clone this repository.
 
 ```bash
 git clone https://github.com/W1set/extention.git
 cd extention
 ```
 
-Then load the extension manually.
-
-### Firefox
-
-1. Open:
+2. Open Firefox.
+3. Navigate to:
 
 ```text
 about:debugging#/runtime/this-firefox
 ```
 
-2. Select **Load Temporary Add-on**.
-3. Select `manifest.json`.
-4. Open a website and check the extension indicator.
-
-### Chromium-based browsers
-
-1. Open:
+4. Click **Load Temporary Add-on...**
+5. Select the project's:
 
 ```text
-chrome://extensions/
+manifest.json
 ```
 
-2. Enable **Developer mode**.
-3. Select **Load unpacked**.
-4. Select the project directory.
+6. Click the Site Verdict extension icon.
+7. Open **Settings** and configure your API keys.
 
-## Project Structure
+---
+
+# Development
+
+The extension is built using standard WebExtension technologies:
+
+* JavaScript
+* HTML
+* CSS
+* WebExtensions API
+* Manifest V3
+
+Main files:
 
 ```text
-extention/
-├── manifest.json
-├── background.js
-├── analyzer.js
-├── popup.html
-├── popup.js
-├── popup.css
-├── options.html
-└── options.js
+manifest.json       Extension configuration
+background.js       Background/service-worker logic
+analyzer.js         Website analysis logic
+popup.html          Extension popup
+popup.js            Popup logic
+popup.css           Popup styling
+options.html        Settings page
+options.js          Settings logic
+README.md           Documentation
 ```
 
-### Main Components
+After modifying the extension, reload it from:
 
-| File            | Purpose                                 |
-| --------------- | --------------------------------------- |
-| `manifest.json` | Extension configuration and permissions |
-| `background.js` | Background extension logic              |
-| `analyzer.js`   | Website/domain analysis                 |
-| `popup.html`    | Extension popup interface               |
-| `popup.js`      | Popup functionality                     |
-| `popup.css`     | Popup styling                           |
-| `options.html`  | Settings page                           |
-| `options.js`    | Settings functionality                  |
+```text
+about:debugging#/runtime/this-firefox
+```
 
-## Security
+---
 
-This project is designed as a defensive security tool.
+# API Key Security
 
-It should be treated as an additional security layer rather than a replacement for:
+**Do not commit your API keys to GitHub.**
 
-* Browser security mechanisms
-* Antivirus software
-* Password managers
-* MFA
-* DNS/security filtering
-* User verification
+Never put keys directly into files such as:
 
-A website marked as trusted should **not** be interpreted as guaranteed safe.
+```javascript
+const API_KEY = "your-real-api-key";
+```
 
-Likewise, a suspicious result does not necessarily mean that a website is malicious.
+or:
 
-## Testing
+```text
+manifest.json
+background.js
+analyzer.js
+```
 
-For testing, use dedicated security datasets and isolated environments.
+Use the extension's Settings page instead.
 
-Recommended sources include:
+Before publishing the repository, make sure that no real API keys are present in the source code or Git history.
 
-* [PhishTank](https://www.phishtank.net/) — phishing URL database
-* [URLhaus](https://urlhaus.abuse.ch/) — malicious URL database
-* Known typosquatting examples
-* Test domains created specifically for development
+If an API key has accidentally been published, revoke it and generate a new one.
 
-Do **not** enter real credentials or personal information on suspicious websites during testing.
+---
 
-## Roadmap
+# Privacy
 
-* [ ] Improve domain similarity detection
-* [ ] Add typosquatting detection
-* [ ] Add homoglyph detection
-* [ ] Integrate external reputation APIs
-* [ ] Add domain age analysis
-* [ ] Improve trust scoring
-* [ ] Add configurable warning levels
-* [ ] Add local caching of reputation results
-* [ ] Add automated tests
-* [ ] Improve Firefox and Chromium compatibility
-* [ ] Add unit tests for the domain analyzer
+Website URLs may be sent to external reputation services when the corresponding API is enabled.
 
-## Contributing
+For example:
 
-Contributions, bug reports and feature requests are welcome.
+```text
+Current website
+      ↓
+Site Verdict
+      ↓
+VirusTotal / Google Safe Browsing
+      ↓
+Reputation result
+```
 
-Before submitting a pull request:
+Do not use the extension with sensitive or private URLs unless you understand how the selected reputation services process submitted URLs.
 
-1. Test the extension locally.
-2. Make sure existing functionality still works.
-3. Keep changes focused.
-4. Do not commit API keys or other secrets.
+Review the privacy policies and API documentation of the services you enable.
 
-## Disclaimer
+---
 
-This project is provided for educational and defensive security purposes.
+# Limitations
 
-No automated website reputation system can guarantee that a website is safe or malicious. Always verify the domain and avoid entering sensitive information when you are unsure.
+Site Verdict should not be considered a complete malware or phishing detection system.
 
-## License
+Possible limitations include:
 
-This project is licensed under the MIT License.
+* False positives.
+* False negatives.
+* Newly registered malicious domains may not yet have reputation data.
+* Reputation databases can contain outdated information.
+* API services may have rate limits.
+* API keys may require specific account or project configuration.
+
+A website receiving a clean reputation result does **not** guarantee that the website is safe.
+
+---
+
+# License
+
+This project does not currently specify a license.
+
+If you want other developers to freely use and modify the project, consider adding an open-source license such as MIT.
