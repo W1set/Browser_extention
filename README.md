@@ -212,63 +212,7 @@ manifest.json
 
 ---
 
-# Development
 
-The extension is built using standard WebExtension technologies:
-
-* JavaScript
-* HTML
-* CSS
-* WebExtensions API
-* Manifest V3
-
-Main files:
-
-```text
-manifest.json       Extension configuration
-background.js       Background/service-worker logic
-analyzer.js         Website analysis logic
-popup.html          Extension popup
-popup.js            Popup logic
-popup.css           Popup styling
-options.html        Settings page
-options.js          Settings logic
-README.md           Documentation
-```
-
-After modifying the extension, reload it from:
-
-```text
-about:debugging#/runtime/this-firefox
-```
-
----
-
-# API Key Security
-
-**Do not commit your API keys to GitHub.**
-
-Never put keys directly into files such as:
-
-```javascript
-const API_KEY = "your-real-api-key";
-```
-
-or:
-
-```text
-manifest.json
-background.js
-analyzer.js
-```
-
-Use the extension's Settings page instead.
-
-Before publishing the repository, make sure that no real API keys are present in the source code or Git history.
-
-If an API key has accidentally been published, revoke it and generate a new one.
-
----
 
 # Privacy
 
