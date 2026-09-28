@@ -306,11 +306,3 @@ Possible limitations include:
 * API keys may require specific account or project configuration.
 
 A website receiving a clean reputation result does **not** guarantee that the website is safe.
-
----
-
-# License
-
-This project does not currently specify a license.
-
-If you want other developers to freely use and modify the project, consider adding an open-source license such as MIT.
