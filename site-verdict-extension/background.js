@@ -37,9 +37,7 @@ const DEFAULT_KNOWN_BRANDS = [
   "blizzard.com", "riotgames.com", "roblox.com", "minecraft.net", "spotify.com",
   // Security software
   "kaspersky.com", "avast.com", "norton.com", "mcafee.com", "bitdefender.com",
-  // Ukraine-specific banks / gov / services
-  "bank.gov.ua", "privatbank.ua", "monobank.ua", "oschadbank.ua", "ukrsibbank.com",
-  "raiffeisen.ua", "pumb.ua", "diia.gov.ua"
+  
 ];
 
 // Keywords that often appear alongside a brand name in phishing domains
